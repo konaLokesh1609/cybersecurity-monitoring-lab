@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A beginner cybersecurity lab demonstrating failed-login monitoring and alert detection with PowerShell and CSV logs.">
+  <title>Cybersecurity Monitoring & Attack Detection Lab</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0b1220; --panel:#121d30; --text:#e8eef8; --muted:#a9b7ca; --accent:#63d6c5; --line:#263750; }
+    * { box-sizing:border-box; }
+    body { margin:0; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); }
+    .wrap { width:min(920px, calc(100% - 36px)); margin:auto; }
+    header { padding:68px 0 48px; border-bottom:1px solid var(--line); background:radial-gradient(ellipse at top right,#18364a 0,transparent 55%); }
+    .eyebrow { color:var(--accent); font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:.78rem; }
+    h1 { font-size:clamp(2rem,5vw,3.4rem); line-height:1.12; margin:14px 0; max-width:780px; }
+    .intro { color:var(--muted); max-width:720px; font-size:1.08rem; }
+    section { padding:34px 0; border-bottom:1px solid var(--line); }
+    h2 { font-size:1.45rem; margin:0 0 14px; }
+    p { margin:10px 0; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-top:18px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; }
+    .card strong { color:var(--accent); display:block; margin-bottom:5px; }
+    ul { padding-left:22px; }
+    li { margin:7px 0; }
+    code { color:#a7e9df; background:#0a1422; padding:2px 6px; border-radius:5px; }
+    .result { overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin-top:16px; }
+    table { border-collapse:collapse; width:100%; min-width:480px; }
+    th,td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); }
+    th { color:var(--accent); background:#101a2b; }
+    tr:last-child td { border-bottom:0; }
+    .note { color:var(--muted); font-size:.93rem; }
+    footer { padding:28px 0 42px; color:var(--muted); font-size:.9rem; }
+    a { color:var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">Personal Cybersecurity Project</div>
+      <h1>Cybersecurity Monitoring &amp; Attack Detection Lab</h1>
+      <p class="intro">A hands-on beginner lab that demonstrates how repeated failed login attempts can be identified from log data using PowerShell.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>Project overview</h2>
+      <p>This project demonstrates a basic security-monitoring workflow: read login-event records, count failed attempts, and raise an alert when a threshold is reached within a short time window.</p>
+      <div class="grid">
+        <div class="card"><strong>Focus</strong>Failed-login monitoring and basic attack detection</div>
+        <div class="card"><strong>Tools</strong>Windows 11, PowerShell, CSV log data</div>
+        <div class="card"><strong>Detection rule</strong>5 or more failed logins within 5 minutes</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol>
+        <li>Login-event records are stored in a CSV file with timestamp, username, source IP, and result fields.</li>
+        <li>A PowerShell script reads the records and groups failed attempts by username and source IP.</li>
+        <li>The script checks whether the number of failures reaches the configured threshold within five minutes.</li>
+        <li>If the threshold is reached, the script displays an alert for investigation.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Example detection result</h2>
+      <p>The test dataset produced the following example alert:</p>
+      <div class="result">
+        <table>
+          <tbody>
+            <tr><th>Field</th><th>Detected value</th></tr>
+            <tr><td>Username</td><td>student</td></tr>
+            <tr><td>Source IP</td><td>192.0.2.15</td></tr>
+            <tr><td>Failed attempts</td><td>5</td></tr>
+            <tr><td>Time window</td><td>10:01–10:05, 14 October 2026</td></tr>
+            <tr><td>Alert</td><td>5 or more failures within 5 minutes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">This is a demonstration using sample log data. The IP address shown is from the documentation-only TEST-NET range and is not presented as a real attacker.</p>
+    </section>
+
+    <section>
+      <h2>What I learned</h2>
+      <ul>
+        <li>How login-event logs can support security monitoring.</li>
+        <li>How to process CSV data with PowerShell.</li>
+        <li>How to apply a simple threshold-based detection rule.</li>
+        <li>Why repeated authentication failures may need investigation.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Scope and next steps</h2>
+      <p>This is a small learning lab, not a production SIEM or a validated intrusion-detection system. A useful next improvement would be to export real Windows failed-logon events, parse them, and compare the results with the sample-data test.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Project portfolio page · Built as a practical cybersecurity learning project</div>
+  </footer>
+</body>
+</html>
